@@ -1,6 +1,6 @@
 # Word Face
 
-Word Face is an Android app that shows Merriam-Webster’s Word of the Day on Samsung One UI lock screens. It provides two- and three-block layouts, renders the word in bold Instrument Serif and the definition in Instrument Serif, and schedules feed refreshes for 8:00am and 8:00pm local device time.
+Word Face is an Android app that shows Merriam-Webster’s Word of the Day on Samsung One UI lock screens.
 
 ## Build
 
@@ -12,7 +12,7 @@ Requirements: JDK 17 and Android SDK Platform 35.
 
 On Windows, run `gradlew.bat assembleDebug`.
 
-The APK is written to `app/build/outputs/apk/debug/app-debug.apk`. Install it, open the lock-screen editor, choose **Widgets**, and add the Word Face 2x1 or 3x1 widget. When updating an existing install, remove and re-add the widget to refresh its layout.
+The APK is written to `app/build/outputs/apk/debug/app-debug.apk`. Install it, open the lock-screen editor, choose **Widgets**, and add the Word Face 2x1 widget. When updating an existing install, remove and re-add the widget to refresh its layout.
 
 ### Release signing
 
