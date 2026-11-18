@@ -63,7 +63,7 @@ object WidgetTextRenderer {
         if (shown.size < lines.size && shown.isNotEmpty()) {
             shown[shown.lastIndex] = ellipsize(shown.last() + "…", paint, width.toFloat())
         }
-        var baseline = -paint.fontMetrics.ascent
+        var baseline = height - paint.fontMetrics.descent - (shown.size - 1) * lineHeight
         shown.forEach { line ->
             canvas.drawText(line, 0f, baseline, paint)
             baseline += lineHeight
