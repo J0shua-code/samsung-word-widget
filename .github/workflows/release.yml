@@ -11,6 +11,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: keystore
     steps:
       - name: Check out source
         uses: actions/checkout@v7
