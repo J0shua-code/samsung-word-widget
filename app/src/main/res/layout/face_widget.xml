@@ -1,0 +1,9 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/background" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:weightSum="10" android:background="@drawable/widget_origin"
+    android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="8dp" android:paddingBottom="8dp">
+    <ImageView android:id="@+id/word_image" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="3" android:scaleType="fitXY" android:contentDescription="Word of the day" />
+    <ImageView android:id="@+id/definition_image" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="7" android:scaleType="fitXY" android:contentDescription="Word definition" />
+</LinearLayout>

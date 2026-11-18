@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.samsung.systemui.permission.FACE_WIDGET" />
+    <application android:theme="@style/AppTheme" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher" android:usesCleartextTraffic="false">
+        <meta-data android:name="SamsungBasicInteraction" android:value="SEP10" />
+        <meta-data android:name="com.samsung.systemui.facewidget.executable" android:resource="@raw/facewidgets" />
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".FaceWidgetReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.samsung.android.intent.action.REQUEST_SERVICEBOX_REMOTEVIEWS" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".WordRefreshScheduler" android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.wordface.action.SCHEDULED_REFRESH" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".WordWidget2x1Provider" android:exported="true" android:label="@string/widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/word_widget_2x1_info" />
+            <meta-data android:name="samsung.appwidget.monotone.info" android:resource="@xml/word_widget_2x1_info_oneui" />
+        </receiver>
+        <receiver android:name=".WordWidget3x1Provider" android:exported="true" android:label="@string/widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/word_widget_3x1_info" />
+            <meta-data android:name="samsung.appwidget.monotone.info" android:resource="@xml/word_widget_3x1_info_oneui" />
+        </receiver>
+    </application>
+</manifest>

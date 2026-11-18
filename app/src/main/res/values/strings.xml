@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Word Face</string>
+    <string name="widget_title">Word of the Day</string>
+    <string name="feed_url">https://www.merriam-webster.com/wotd/feed/rss2</string>
+</resources>

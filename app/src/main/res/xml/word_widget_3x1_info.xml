@@ -1,0 +1,13 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:initialLayout="@layout/face_widget"
+    android:minWidth="186dp" android:minHeight="70dp"
+    android:minResizeWidth="186dp" android:minResizeHeight="70dp"
+    android:previewLayout="@layout/face_widget"
+    android:targetCellWidth="3" android:targetCellHeight="1"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="0x2000"
+    app:monotonePreviewLayoutMedium="@layout/face_widget"
+    app:targetHost="lock_and_aod|cover"
+    app:widgetSize="medium|large"
+    app:widgetStyle="monotone" />

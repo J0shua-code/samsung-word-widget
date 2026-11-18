@@ -1,0 +1,27 @@
+<resources>
+    <attr name="allowMultipleSizes" format="boolean" />
+    <attr name="widgetStyle" format="integer">
+        <flag name="colorful" value="0x1" />
+        <flag name="monotone" value="0x2" />
+    </attr>
+    <attr name="widgetSize" format="integer">
+        <flag name="tiny" value="0x1" />
+        <flag name="small" value="0x2" />
+        <flag name="medium" value="0x8" />
+        <flag name="large" value="0x10" />
+    </attr>
+    <attr name="targetHost" format="integer">
+        <flag name="home" value="0x1" />
+        <flag name="lock_and_aod" value="0x2" />
+        <flag name="cover" value="0x4" />
+    </attr>
+    <attr name="initialLayoutTiny" format="reference" />
+    <attr name="initialLayoutSmall" format="reference" />
+    <attr name="initialLayoutMedium" format="reference" />
+    <attr name="previewLayoutTiny" format="reference" />
+    <attr name="previewLayoutSmall" format="reference" />
+    <attr name="previewLayoutMedium" format="reference" />
+    <attr name="monotonePreviewLayoutTiny" format="reference" />
+    <attr name="monotonePreviewLayoutSmall" format="reference" />
+    <attr name="monotonePreviewLayoutMedium" format="reference" />
+</resources>

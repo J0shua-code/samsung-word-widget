@@ -1,0 +1,25 @@
+.gradle/
+.kotlin/
+**/build/
+local.properties
+*.iml
+.idea/
+
+# Android/NDK and IDE outputs
+captures/
+.externalNativeBuild/
+.cxx/
+*.hprof
+*.log
+
+# Local signing material and credentials
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

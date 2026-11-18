@@ -1,0 +1,9 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="vertical" android:padding="28dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A little more\nword-wise." android:textColor="#25231F" android:textSize="36sp" android:fontFamily="serif" />
+        <TextView android:id="@+id/preview_word" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="36dp" android:text="Loading today’s word…" android:textColor="#806B55" android:textSize="26sp" android:fontFamily="@font/instrument_serif_regular" android:textStyle="bold" />
+        <TextView android:id="@+id/preview_definition" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="The Merriam-Webster Word of the Day, on your lock screen." android:textColor="#504C46" android:textSize="16sp" android:lineSpacingExtra="3dp" android:fontFamily="@font/instrument_serif_regular" />
+        <Button android:id="@+id/refresh" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="28dp" android:text="Refresh word" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="30dp" android:text="Add Word Face in Settings → Lock screen → Widgets. The card is designed to sit neatly in a compact two or three block space." android:textColor="#77716A" android:textSize="14sp" android:lineSpacingExtra="3dp" />
+    </LinearLayout>
+</ScrollView>
