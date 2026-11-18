@@ -1,0 +1,96 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install Android SDK packages
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Build signed release APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for secret_name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            if [ -z "${!secret_name}" ]; then
+              echo "::error::Missing Actions secret: ${secret_name}"
+              exit 1
+            fi
+          done
+
+          trap 'rm -f app/keystore.properties app/release-key.p12' EXIT
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > app/release-key.p12
+          chmod 600 app/release-key.p12
+
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          def escape(value):
+              result = []
+              for index, char in enumerate(value):
+                  code = ord(char)
+                  if char == "\\":
+                      result.append("\\\\")
+                  elif char in "=:#!" or (char == " " and index == 0):
+                      result.append("\\" + char)
+                  elif char == "\t":
+                      result.append("\\t")
+                  elif char in "\n\r\f" or code < 0x20 or code > 0x7e:
+                      result.append(f"\\u{code:04x}")
+                  else:
+                      result.append(char)
+              return "".join(result)
+
+          properties = {
+              "storeFile": "release-key.p12",
+              "storePassword": os.environ["ANDROID_KEYSTORE_PASSWORD"],
+              "keyAlias": os.environ["ANDROID_KEY_ALIAS"],
+              "keyPassword": os.environ["ANDROID_KEY_PASSWORD"],
+          }
+          Path("app/keystore.properties").write_text(
+              "".join(f"{key}={escape(value)}\n" for key, value in properties.items()),
+              encoding="ascii",
+          )
+          PY
+
+          ./gradlew --no-daemon --console=plain assembleRelease
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify app/build/outputs/apk/release/app-release.apk
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          apk="app/build/outputs/apk/release/app-release.apk"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$apk" --clobber
+          else
+            gh release create "$tag" "$apk" \
+              --verify-tag \
+              --title "Word Face $tag" \
+              --generate-notes
+          fi
